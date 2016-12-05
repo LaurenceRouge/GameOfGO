@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <!-- Basic Page Needs
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>Jeu de Go - GoT</title>
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="description" content="Un jeu de Go basé sur l'univers de Game of Thrones">
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="fonts/TrajanPro-Bold.otf" rel="stylesheet" type="text/css">
+    <link href="fonts/TrajanPro-Regular.otf" rel="stylesheet" type="text/css">
+    <link href="fonts/Gameofthrones.ttf" rel="stylesheet" type="text/css">
+
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/jquery-confirm.min.css">
+    <link rel="stylesheet" href="fontAwesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/go.css">
+
+    <!-- Favicon
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  </head>
+  <body>
+
+    <!-- Primary Page Layout
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <i class="fa fa-volume-off fa-3x" id='sonUp'></i>
+    <i class="fa fa-volume-up fa-3x" id='mute'></i>
+
+    <div id="content" class="container">
+      <div class="row">
+        <!-- Page d'accueil -->
+        <div id="introduction" class= "accueil" style="margin-top: 18%">
+          <audio id ="audioPlayer" src =" audios/intro.mp3" autoplay loop></audio>
+          <audio id="player"></audio>
+          <audio id="audio2"></audio>
+          <h1>GAME OF GO</h1>
+          <h3>WHEN YOU PLAY A GAME OF THRONES YOU WIN OR YOU DIE</h3>
+          <button class="buttonAccueil" onclick="GoToPlayers()">ENTER THE FRAY !</button>
+          <div id = "save"></div>
+        </div>
+        <!-- Page choix du mode de jeu -->
+        <div id="players" class="choiceGame" style="margin-top : 5%; display:none">
+          <h2>CHOOSE YOUR OPPONENT</h2>
+          <h3>THE MAN WHO FEARS LOSING HAS ALREADY LOST</h3>
+          <div class="playerVsPlayer" onclick="GoToHouse(2)">
+            <img src="images/VS1.png" alt="icône 1v1" class="noai" />
+          </div>
+          <div class="playerVsAI" onclick="GoToHouse(1)">
+            <img src="images/VSAI.png" alt="icône joueur vs ordinateur" class="noai" />
+          </div>
+        </div>
+        <!-- Page choix des maisons -->
+        <div id="house" class="choiceHouse" style="margin-top : 5%; display:none">
+          <h2>CHOOSE YOUR HOUSE</h2>
+          <div id = "alertHouse"></div>
+          <div class="allHouses">
+            <div id="gauche" class="house" onclick="OnSelectHouse(1, gauche)">
+              <p class="maison">TARGARYEN</p>
+              <p class="devise">FIRE AND BLOOD</p>
+              <p class ="pouvoir">BATTLE CRY <br/>DRACARYS <br/> Burn an enemy</p>
+            </div>
+            <div id="milieug" class="house" onclick="OnSelectHouse(2, milieug)">
+              <p class="maison">BARATHÉON</p>
+              <p class="devise">OURS IS FURY</p>
+              <p class ="pouvoir">BATTLE CRY <br/>BOW BEFORE YOUR KING <br/> Move an enemy</p>
+            </div>
+            <div id="milieud" class="house" onclick="OnSelectHouse(3, milieud)">
+              <p class="maison">LANNISTER</p>
+              <p class="devise">HEAR ME ROAR</p>
+              <p class ="pouvoir">BATTLE CRY <br/>A LANNISTER ALWAYS <br/>PAYS HIS DEBTS <br/> Bribe an enemy</p>
+            </div>
+            <div id="droite" class="house" onclick="OnSelectHouse(4, droite)">
+              <p class="maison">STARK</p>
+              <p class="devise">WINTER IS COMING</p>
+              <p class ="pouvoir">BATTLE CRY <br/>THE NORTH REMEMBERS <br/> Freeze the field and block your enemy</p>
+            </div> 
+          </div>
+        </div>
+        <!-- Page choix du jeu -->
+        <div id="game" style="display:none">
+          <h2>MAY THE BEST HOUSE WIN</h2>
+          <button class="help" type="button" onclick="GoToHelp()">SEE THE BATTLE PLAN</button>
+          <div id="compteurJ1"></div>
+          <div id="compteur"></div>
+          <div id="alert"></div>
+          <div>
+            <div id ="player1"><button id="power1" class="interagir power" type="button" onclick="OnActivatePower(1)">Cry</button></div>
+            <div id ="player2"><button id="power2" class="interagir power" type="button" onclick="OnActivatePower(2)">Cry</button></div>
+            <div id="goban"></div>
+          </div>
+          <div id="boutons_bas">
+            <button class="interagir" type="button" onclick="Pass()">Go on your way</button>
+            <button class="interagir" type="button" onclick="Abort()">Surrender</button>
+            <button class="interagir" type="button" onclick="SaveGame()">Save the day</button>
+            <!-- <button type="button" onclick="RestoreGame()">Restore</button> -->
+            <button  class="bt_taille" type="button" onclick="ChangeGobanSize(CGOBAN_SMALL)">SMALL</button>
+            <button  class="bt_taille" type="button" onclick="ChangeGobanSize(CGOBAN_MEDIUM)">MEDIUM</button>
+            <button  class="bt_taille" type="button" onclick="ChangeGobanSize(CGOBAN_LARGE)">LARGE</button>
+          </div>
+        </div>
+        <!-- Page de l'aide -->
+        <div id="help" style="display:none">
+          <button class ="regle" type="button" onclick="ReturnGame()">Return</button>
+          <h5 class="title_help">Aim : </h5>
+          <span class="text_help">
+            Earn victory by dominating the biggest territory !
+          </span>
+          <div class="para_help">
+            <h5 class="title_help">Battle cry : </h5>
+            <span class="text_help"> 
+              Every house has a "battle cry" that the player can use at the beginning of his turn. <br/>
+              DRACARYS :<br/> The targaryen dragons set fire to the board game. The Targaryen player suppresses an enemy piece by clicking on it. <!-- Les dragons targaryens enflamment le plateau de jeu. Le joueur Targaryen élimine un pion adverse en cliquant dessus.--><br/>
+              BOW BEFORE YOUR KING :<br/> Lightning strikes the board game obligating an enemy piece to change its place. The Baratheon player chooses an enemy piece and puts it where he wants.<!--De la foudre tombe sur le plateau de jeu obligeant un pion adverse à changer d'emplacement. Le joueur Baratheon choisit un pion adverse et le place où il le souhaite.--><br/>
+              THE NORTH REMEMBERS : <br/> A snowstorm hits the board game. The Stark player can put two pieces in a row, the snowstorm preventing his opponent to play. <!--Une tempête de neige s'abat sur le plateau de jeu. Le joueur Stark peut poser consécutivement deux pions, la tempête de neige empêchant son adversaire de jouer.--><br/>
+              A LANNISTER ALWAYS PAYS HIS DEBTS : <br/> The Lannister bribes an enemy piece. The Lannister player chooses an enemy piece which becomes a Lannister one. <!--Le Lannister soudoie un pion adverse. Le joueur Lannister choisit un pion adverse qui devient alors Lannister.-->
+            </span>
+          </div>
+          <div class="para_help">
+            <h5 class="title_help">Handicap : </h5>
+            <span class="text_help">
+              If the players don't have the same level, they can play with "handicaps" to give an advantage to the less experienced player. This one will be allowed to put between 2 and 9 pieces on the board during his first turn. This pieces can be put on specific cases called "hoshi", however new rules are allowing to put them wherever we want to. Moreover, the most experienced player will not have the "komi" at the end of the game (unless there is an egality (+0,5)). 
+              <!--Si les joueurs ont un niveau différent, il est possible de jouer avec des "handicaps" afin de donner un avantage au joueur le moins expérimenté. Ce dernier pourra placer entre 2 et 9 pions lors de son premier tour. Ces pions peuvent être placés sur les hoshis (intersections plus épaisses du goban), cependant de nouvelles règles autorisent toutes les intersections. De plus, le joueur plus expérimenté ne recevra pas le komi à la fin de la partie (excepté en cas d'égalité où il recevra les 0,5 points habituels).-->
+            </span>
+          </div>
+          <div class="para_help">
+            <h5 class="title_help">Capture : </h5>
+            <span class="text_help">
+              When a player removes the last liberty of a chain of opponent pieces, he catches it by removing of the grid all its pieces.
+              <!-- Lorsqu'un joueur supprime la dernière liberté d'une chaîne de pierres adverses, il la capture en retirant de la grille toutes les pierres de cette chaîne.-->
+            </span>
+          </div>
+          <div class="para_help">
+            <h5 class="title_help">Forbidden strokes : </h5>
+            <span class="text_help">
+              Suicide<!--Le suicide--> : <br/> A player can't build a chain without liberty, unless this stroke allows him to catch an opponent chain.<!-- Un joueur n'a pas le droit de construire une chaîne sans liberté, sauf si, avec ce coup, il capture une chaîne adverse.--><br/>
+              Repetition<!--La répétition--> :<br/> A player must not give back to the grid an identical state to the one he had already given it by putting a piece. <!-- Un joueur, en posant une pierre, ne doit pas redonner à la grille un état identique à l'un de ceux qu'il lui avait déjà donné-->(ex : le ko).
+            </span>
+          </div>
+          <div class="para_help">
+            <h5 class="title_help">End : </h5>
+            <span class="text_help">
+              The game stops when :<!--La partie s'arrête lorsque :--> <br/>
+              - both players pass <!--les deux joueurs passent consécutivement--> <br/>
+              - one player surrenders <!--un des joueurs abandonne--> <br/>
+              - the board game is full <!--le goban est rempli--> <br/>
+              - the second timer started after 30 minutes of play reaches 0 <!--le second chronomètre lancé après 30 minutes de jeu atteint 0--> <br/>
+              The score is calculated : each empty intersection of a territory and each piece still alive bring one point at its player. In a game without handicaps, the white player (player2) receives extra points : it's the komi. It adds 7,5 points. The winner is the player who has the most points.  
+              <!--Les points sont alors comptés : chaque intersection inoccupée du territoire d'un joueur lui rapporte un point, ainsi que chacune de ses pierres encore présentes sur la grille.
+              Dans une partie sans handicaps, le joueur Blanc (second joueur) reçoit des points supplémentaires. C'est le komi. Dans ce jeu, le komi est de 7,5 points. 
+              Le gagnant est celui qui a le plus de points.--></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery-confirm.min.js"></script>
+    <script type="text/javascript" src="scripts/coordinate.js"></script>
+  	<script type="text/javascript" src="scripts/goban.js"></script>
+    <script type="text/javascript" src="scripts/house.js"></script>
+    <script type="text/javascript" src="scripts/player.js"></script>
+  	<script type="text/javascript" src="scripts/go.js"></script>
+    <script type="text/javascript" src="scripts/save.js"></script>
+  	<script type="text/javascript" src="scripts/game.js"></script>
+    <script type="text/javascript" src="scripts/chrono.js"></script>
+    <script type="text/javascript" src="scripts/help.js"></script>
+  </body>
+</html>

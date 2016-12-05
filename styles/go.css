@@ -1,0 +1,275 @@
+table{
+  position: relative;
+  top: 17px;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  border-spacing: 0px;
+}
+
+tr{
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  border-spacing: 0px;
+}
+
+td{
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  border-spacing: 0px;
+}
+
+/************************************************ Body ********************************************/
+body{
+  background:url('../images/trone.jpg') no-repeat;
+  background-size: cover;
+}
+h1, h2, h3, h5{
+  text-align: center;
+}
+
+.fa-volume-off, .fa-volume-up{
+  float: left;
+  cursor: pointer;
+  color: white;
+}
+
+/************************************* Page choix du mode de jeu *********************************/
+.playerVsPlayer{
+  margin-top: 50px;
+}
+.playerVsPlayer, .playerVsAI{
+  text-align: center;
+  opacity:0.5;
+}
+.noai {
+  width:50%;
+  height: 50%;
+}
+.separation{
+  text-align: center;
+  color:white;
+  font-size:3rem;
+  font-family: "SourceSansPro-Semibold";
+}
+.playerVsPlayer:hover, .playerVsAI:hover{
+  opacity:1;
+}
+
+/************************************** Page choix des maisons **********************************/
+.choiceHouse{
+  /*display: none;*/
+  text-align: center;
+  color:white;
+  font-size:3rem;
+  font-family: "SourceSansPro-Semibold";
+}
+.choiceHouse h2 {
+  z-index: 1;
+  position: absolute;
+  width: 960px;
+}
+.allHouses{
+  z-index: 0;
+  height : 1000px;
+  width: 960px;
+  position: absolute;
+  top :-50px;
+}
+
+#gauche, #droite, #milieug, #milieud{
+  overflow:hidden;
+  display:inline-block;
+  width:25%;
+  height: 100%;
+  padding-bottom: 300px;
+}
+/* safari and opera need this */
+#gauche,#milieug {
+  float:left;
+}
+#droite,#milieud {
+  float:right;
+}
+
+#gauche{
+  background:url('../images/blasons/targaryen2.png') no-repeat;
+  background-position: 0px 180px;
+}
+#milieug {
+  background:url('../images/blasons/baratheon2.png') no-repeat;
+  background-position: 0px 180px;
+}
+#milieud {
+  background:url('../images/blasons/lannister2.png') no-repeat;
+  background-position: 0px 180px;
+}
+#droite {
+  background:url('../images/blasons/stark2.png') no-repeat;
+  background-position: 0px 180px;
+}
+
+.maison, .devise, .pouvoir{
+  visibility:hidden;
+}
+
+#gauche:hover .maison, #milieug:hover .maison, #milieud:hover .maison, #droite:hover .maison{
+  margin-top: 450px;
+  visibility:visible;
+  font-family: "SourceSansPro-Semibold";
+  font-size : 25px;
+  margin-bottom: 0px;
+}
+#gauche:hover .devise, #milieug:hover .devise, #milieud:hover .devise, #droite:hover .devise,
+#gauche:hover .pouvoir, #milieug:hover .pouvoir, #milieud:hover .pouvoir, #droite:hover .pouvoir{
+  visibility:visible;
+  font-family: "TrajanPro-Regular";
+  font-size : 12px;
+}
+
+#gauche:hover .pouvoir, #milieug:hover .pouvoir, #milieud:hover .pouvoir, #droite:hover .pouvoir{
+  font-family: "SourceSansPro-Semibold";
+  font-size : 16px;
+}
+
+#gauche:hover, #droite:hover, #milieug:hover, #milieud:hover{
+  padding-bottom: 300px;
+}
+#gauche:hover{
+  background:url('../images/blasons/targaryen1.png') no-repeat;
+  background-position: 0px 180px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#droite:hover{
+  background:url('../images/blasons/stark1.png') no-repeat;
+  background-position: 0px 180px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#milieug:hover{
+  background:url('../images/blasons/baratheon1.png') no-repeat;
+  background-position: 0px 180px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#milieud:hover{
+  background:url('../images/blasons/lannister1.png') no-repeat;
+  background-position: 0px 180px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+/******************************************** Page du jeu **********************************************************/
+
+#game h2{
+  margin-bottom: 10px;
+}
+.interagir{
+  color: #fff;
+  width: 250px;
+  display: inline-block;
+  margin-right: 50px;
+  margin-top: 20px;
+}
+.bt_taille{
+  display: inline-block;
+  width: 150px;
+  margin: auto;
+  margin-left: 50px;
+  margin-right: 11%;
+}
+#boutons_bas{
+  margin: auto;
+  padding-left: 50px;
+}
+#goban{
+  margin: auto;
+}
+.help{
+  margin-top: 0px;
+}
+.power{
+  display: inline-block;
+  width: 139px;
+  top:250px;
+  margin:0px; 
+}
+#power1{
+  float: left;
+}
+#power2{
+  float: right;
+}
+#compteur, #compteurJ1{
+  font-family: "TrajanPro-Regular";
+  font-size : 20px;
+  color: white;
+  text-align: center;
+}
+
+#nameP1, #nameP2{
+  text-align: center;
+  color: white;
+  font-family: "TrajanPro-Regular";
+  text-align: center;
+}
+
+/**************************************** Aide et règles du jeu *****************************************************/
+
+.text_help{
+    color: #C1C1C1;
+    display: block;
+    margin-top:10px;
+}
+#help{
+  color: white;
+  font-family: "SourceSansPro-Semibold";
+  text-align: center;
+  width: 500px;
+  margin:auto;
+}
+.title_help{
+  display: inline-block;
+  padding-top:2px;
+  font-family: "SourceSansPro-Semibold";
+  font-size: 14px;
+  margin-top: 25px; 
+  width:145px;
+  color: #C60800;
+  cursor: pointer;
+}
+.para-help{
+  display: block;
+}
+h5{
+   background: url(../images/parchemin_haut.png) no-repeat;
+   background-size: cover;
+}
+
+/**************************************** Alert *********************************************/
+
+#save{
+  font-family: "TrajanPro-Regular";
+  font-size : 20px;
+  color: white;
+  text-align: center;
+}
+
+#alert{
+  font-family: "TrajanPro-Regular";
+  font-size : 20px;
+  color: white;
+  text-align: center;
+}
+
+#alertHouse{
+  font-family: "TrajanPro-Regular";
+  font-size : 20px;
+  color: white;
+  text-align: center;
+}
+
+input[type="text"] {
+  height: 30px;
+}
+
